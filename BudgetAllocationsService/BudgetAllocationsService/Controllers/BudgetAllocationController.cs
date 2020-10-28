@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BudgetAllocationsService.Controllers
 {
-    public class PlanController : Controller
+    public class BudgetAllocationController : Controller
     {
         [HttpGet("api/user")]
         public IActionResult Get()
