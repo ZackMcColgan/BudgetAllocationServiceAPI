@@ -8,9 +8,10 @@ namespace BudgetAllocationsService.Controllers
 {
     public class BudgetAllocationController : Controller
     {
-        [HttpGet("api/user")]
-        public IActionResult Get()
+        [HttpGet("api/budgetAllocationsView/")]
+        public async Task<IActionResult> GetBudgetAllocationsView()
         {
+
             return Ok(new { name = "Zack", id = Guid.NewGuid() });
         }
     }

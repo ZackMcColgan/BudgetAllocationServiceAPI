@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetAllocationsService
 {
@@ -24,6 +25,12 @@ namespace BudgetAllocationsService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApiDbContext>(options =>
+            {
+                // Use an in-memory database with a randomized database name (for testing)
+                options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+            });
+
             services.AddControllersWithViews();
 
             services.AddSwaggerGen(generateSwaggerDoc =>
@@ -71,5 +78,20 @@ namespace BudgetAllocationsService
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        // Example of adding test data
+        private static void AddTestData(ApiDbContext context)
+        {
+            // To Seed the in memory DB
+            var conv1 = context.Conversations.Add(new Models.ConversationEntity
+            {
+                Id = Guid.Parse("6f1e369b-29ce-4d43-b027-3756f03899a1"),
+                CreatedAt = DateTimeOffset.UtcNow,
+                Title = "Who is the coolest Avenger?"
+            }).Entity;
+
+            context.SaveChanges();
+        }
     }
+}
 }

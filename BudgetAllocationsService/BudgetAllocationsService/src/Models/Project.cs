@@ -6,9 +6,10 @@ using System.Runtime.InteropServices;
 
 namespace BudgetAllocationsService.Models
 {
-    public class Person
+    public sealed class Project
     {
-        private protected Guid id { get; set; }
-        private protected string name { get; set; }
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
